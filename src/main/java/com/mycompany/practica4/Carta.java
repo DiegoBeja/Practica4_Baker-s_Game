@@ -35,4 +35,9 @@ public class Carta implements Comparable<Carta>{
             return 0;
         }
     }
+    
+    @Override
+    public String toString(){
+        return numero + " " + palo;
+    }
 }

@@ -97,4 +97,28 @@ public class Baraja <Carta>{
 
         System.out.println();
     }
+    
+    public int size(){
+        if(inicio == null){
+            return 0; 
+        }
+
+        int contador = 0;
+        NodoDoble<Carta> actual = inicio;
+
+        do{
+            contador++;
+            actual = actual.getSig(); 
+        } while(actual != inicio); 
+
+        return contador; 
+    }
+    
+    public Carta getUltima(){
+        return fin.getInfo();
+    }
+    
+    public Carta getPrimera(){
+        return inicio.getInfo();
+    }
 }

@@ -1,57 +1,99 @@
 package com.mycompany.practica4;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.util.ArrayList;
 
-public class BakersGame extends JFrame {
+public class BakersGame{
+    private Baraja baraja;
+    private ArrayList<Carta> celda;
+    private ArrayList<Carta> fundacion1;
+    private ArrayList<Carta> fundacion2;
+    private ArrayList<Carta> fundacion3;
+    private ArrayList<Carta> fundacion4;
 
     public BakersGame() {
-        setTitle("Arrastra los JLabels");
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(null); // Usamos layout nulo para poder mover libremente los componentes
-
-        // Crear y agregar varios JLabels de colores
-        addColoredLabel("Rojo", Color.RED, 50, 50);
-        addColoredLabel("Verde", Color.GREEN, 150, 100);
-        addColoredLabel("Azul", Color.BLUE, 250, 150);
-        addColoredLabel("Amarillo", Color.YELLOW, 350, 200);
+        baraja = new Baraja<Carta>();
+        celda = new ArrayList<>();
+        fundacion1 = new ArrayList<>();
+        fundacion2 = new ArrayList<>();
+        fundacion3 = new ArrayList<>();
+        fundacion4 = new ArrayList<>();    }
+    
+    public boolean sePuedeMover(Carta origen, Carta destino){
+        if((destino.getNumero() == origen.getNumero() + 1) && (destino.getPalo().equals(destino.getPalo()))){
+            return true;
+        }
+        return false;
     }
-
-    private void addColoredLabel(String texto, Color color, int x, int y) {
-        JLabel label = new JLabel(texto, SwingConstants.CENTER);
-        label.setOpaque(true);
-        label.setBackground(color);
-        label.setForeground(Color.BLACK);
-        label.setBounds(x, y, 100, 40);
-        label.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-        makeDraggable(label);
-        add(label);
+    
+    public boolean agregarFundacion(Carta cartaF, int cualFundacion){
+        switch(cualFundacion){
+            case 1:
+                if(fundacion1.isEmpty()){
+                    fundacion1.add(cartaF);
+                    return true;
+                } else if(!fundacion1.isEmpty() && fundacion1.getLast().getNumero() < cartaF.getNumero()){
+                    fundacion1.add(cartaF);
+                    return true;
+                }
+                break;
+                
+            case 2:
+                if(fundacion2.isEmpty()){
+                    fundacion2.add(cartaF);
+                    return true;
+                } else if(!fundacion2.isEmpty() && fundacion2.getLast().getNumero() < cartaF.getNumero()){
+                    fundacion2.add(cartaF);
+                    return true;
+                }
+                break;
+                
+            case 3:
+                if(fundacion3.isEmpty()){
+                    fundacion3.add(cartaF);
+                    return true;
+                } else if(!fundacion3.isEmpty() && fundacion3.getLast().getNumero() < cartaF.getNumero()){
+                    fundacion3.add(cartaF);
+                    return true;
+                }
+                break;
+                
+            case 4:
+                if(fundacion4.isEmpty()){
+                    fundacion4.add(cartaF);
+                    return true;
+                } else if(!fundacion4.isEmpty() && fundacion4.getLast().getNumero() < cartaF.getNumero()){
+                    fundacion4.add(cartaF);
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
-
-    private void makeDraggable(JLabel label) {
-        final Point[] offset = {new Point()};
-
-        label.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-                offset[0] = e.getPoint();
-            }
-        });
-
-        label.addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                Point current = e.getLocationOnScreen();
-                SwingUtilities.convertPointFromScreen(current, label.getParent());
-                label.setLocation(current.x - offset[0].x, current.y - offset[0].y);
-            }
-        });
+    
+    public boolean agregarCelda(Carta carta){
+        if(!celdaLlena()){
+            celda.add(carta);
+            return true;
+        }
+        return false;
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new BakersGame().setVisible(true);
-        });
+    
+    public boolean victoria(){
+        if(fundacion1.size() == 13 && fundacion2.size() == 13 && fundacion3.size() == 13 && fundacion4.size() == 13){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean celdaLlena(){
+        if(celda.size() < 4){
+            return false;
+        }
+        return true;
+    }
+    
+    public int getSizeCelda(){
+        return celda.size();
     }
 }
 
