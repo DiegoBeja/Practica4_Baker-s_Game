@@ -1,5 +1,7 @@
 package com.mycompany.practica4;
 
+import java.util.Objects;
+
 public class Carta implements Comparable<Carta>{
     private int numero;
     private String palo;

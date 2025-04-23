@@ -51,7 +51,7 @@ public class Baraja <Carta>{
 
         Carta dato = inicio.getInfo();
 
-        if(inicio == null){
+        if(inicio == fin){
             inicio = fin = null;
         } else{
             fin.setSig(inicio.getSig());
@@ -82,7 +82,7 @@ public class Baraja <Carta>{
     }
 
     public void imprimirLista() {
-        if (inicio == null) {
+        if(inicio == null){
             System.out.println("Lista vacía");
             return;
         }
@@ -90,10 +90,10 @@ public class Baraja <Carta>{
         NodoDoble<Carta> actual = inicio;
         System.out.print("Lista: ");
 
-        do {
+        do{
             System.out.print(actual.getInfo() + " ");
             actual = actual.getSig();
-        } while (actual != inicio);
+        }while(actual != inicio);
 
         System.out.println();
     }
@@ -112,10 +112,6 @@ public class Baraja <Carta>{
         } while(actual != inicio); 
 
         return contador; 
-    }
-    
-    public Carta getUltima(){
-        return fin.getInfo();
     }
     
     public Carta getPrimera(){
